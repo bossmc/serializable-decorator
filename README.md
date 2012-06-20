@@ -22,7 +22,7 @@ An implementation of Delegate that groups the member variables of the delegator 
 
 Add this line to your application's Gemfile:
 
-    gem 'serializable-decorator'
+    gem 'serializable_decorator'
 
 And then execute:
 
@@ -30,7 +30,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install serializable-decorator
+    $ gem install serializable_decorator
 
 ## Contributing
 

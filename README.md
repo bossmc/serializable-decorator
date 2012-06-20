@@ -1,6 +1,22 @@
-# Serializable::Decorator
+# SerializableDecorator
 
-TODO: Write a gem description
+An implementation of Delegate that groups the member variables of the delegator (a subclass of SerializableDecorator) together with those of the delegated object.  For example:
+
+    class MyDecorator < SerializableDecorator
+      :attr_accessor :foo
+    end
+
+    class SomeClass
+      :attr_accessor :bar
+    end
+
+    decorated_class = MyDecorator.new(SomeClass.new)
+    decorated_class.foo = "Hello"
+    decorated_class.bar = "World"
+    puts decorated_class.foo                 # => "Hello"
+    puts decorated_class.bar                 # => "World"
+    puts decorated_class.instance_variables  # => @foo and @bar
+    puts decorated_class.instance_values     # => { "foo" => "Hello", "bar" => "World" }
 
 ## Installation
 
@@ -15,10 +31,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install serializable-decorator
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 

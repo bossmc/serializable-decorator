@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["andy.m.caldwell@googlemail.com"]
   gem.description   = %q{A serializable decorator}
   gem.summary       = %q{A concrete decorator implementation that can be serialized to JSON with the decoration included alongside the original attributes}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/bossmc/serializable-decorator"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

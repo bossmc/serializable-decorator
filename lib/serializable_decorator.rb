@@ -14,10 +14,15 @@ class SerializableDecorator < Delegator
     @@decorator_objects[decorator.object_id]
   end
 
+  def self.clear_obj(object_id)
+    proc { @@decorator_objects.delete(object_id) }
+  end
+
   def initialize(obj)
     super
     SerializableDecorator.change_obj(self, obj)
-  end
+    ObjectSpace.define_finalizer( self, self.class.clear_obj(object_id) )
+  end 
 
   def __getobj__
     SerializableDecorator.get_obj(self)

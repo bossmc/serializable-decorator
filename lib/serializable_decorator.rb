@@ -44,7 +44,17 @@ class SerializableDecorator < Delegator
     __getobj__.instance_variable_get(name) || super
   end
 
+  def as_json
+    if __getobj__.respond_to?(:as_json) then
+      delegator_instance_vars = Delegator.instance_method(:instance_variables).bind(self).call
+      json_hash = Hash[delegator_instance_vars.map { | name | [name.to_s[1..-1], instance_variable_get(name) ] } ]
+      json_hash.merge!(__getobj__.as_json)
+    else
+      instance_values
+    end
+  end
+
   def to_json
-    instance_values.to_json
+    as_json.to_json
   end
 end

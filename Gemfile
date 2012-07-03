@@ -8,3 +8,7 @@ group :test do
   gem 'spork'
   gem 'autotest'
 end
+
+group :development do
+  gem 'pry'
+end

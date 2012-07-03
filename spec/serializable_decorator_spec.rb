@@ -4,6 +4,13 @@ class Test
   attr_accessor :foo
 end
 
+class TestJson < Test
+  attr_accessor :quux
+  def as_json
+    { extra: "baz", foo: @foo }
+  end
+end
+
 class TestDecorator < SerializableDecorator
   attr_accessor :bar
 end
@@ -11,6 +18,7 @@ end
 describe SerializableDecorator do
   before(:each) do
     @td = TestDecorator.new(Test.new)
+    @tdj = TestDecorator.new(TestJson.new)
   end
 
   it "Original attributes are still available" do
@@ -74,5 +82,13 @@ describe SerializableDecorator do
 
   it "Should not include any extraneous entries in the JSON output" do
     @td.to_json.should == "{}"
+  end
+
+  it "Should use the decorated object's as_json if it exists" do
+    @tdj.foo = 12
+    @tdj.bar = 13
+    @tdj.to_json.should include('"foo":12')
+    @tdj.to_json.should include('"bar":13')
+    @tdj.to_json.should include('"extra":"baz"')
   end
 end
